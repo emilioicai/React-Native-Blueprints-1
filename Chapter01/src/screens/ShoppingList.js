@@ -1,5 +1,5 @@
-import React from 'react';
-import { Alert } from 'react-native';
+import React from "react";
+import { Alert } from "react-native";
 import {
   Body,
   Container,
@@ -11,22 +11,19 @@ import {
   ListItem,
   Fab,
   Icon
-} from 'native-base';
+} from "native-base";
 
 export default class ShoppingList extends React.Component {
   static navigationOptions = {
-    title: 'My Groceries List'
+    title: "My Groceries List"
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: [{ id: 1, name: 'bread' }, { id: 2, name: 'eggs' }]
-    };
-  }
+  state = {
+    products: [{ id: 1, name: "bread" }, { id: 2, name: "eggs" }]
+  };
 
   /*** User Actions Handlers ***/
-  _handleProductPress(product) {
+  _handleProductPress = async product => {
     this.state.products.forEach(p => {
       if (product.id === p.id) {
         p.gotten = !p.gotten;
@@ -34,10 +31,10 @@ export default class ShoppingList extends React.Component {
       return p;
     });
     this.setState({ products: this.state.products });
-  }
+  };
 
-  _handleAddProductPress() {
-    this.props.navigation.navigate('AddProduct', {
+  _handleAddProductPress = () => {
+    this.props.navigation.navigate("AddProduct", {
       addProduct: product => {
         this.setState({
           products: this.state.products.concat(product)
@@ -50,14 +47,14 @@ export default class ShoppingList extends React.Component {
       },
       productsInList: this.state.products
     });
-  }
+  };
 
-  _handleClearPress() {
-    Alert.alert('Clear all items?', null, [
-      { text: 'Cancel' },
-      { text: 'Ok', onPress: () => this.setState({ products: [] }) }
+  _handleClearPress = () => {
+    Alert.alert("Clear all items?", null, [
+      { text: "Cancel" },
+      { text: "Ok", onPress: () => this.setState({ products: [] }) }
     ]);
-  }
+  };
 
   /*** Render ***/
   render() {
@@ -69,17 +66,17 @@ export default class ShoppingList extends React.Component {
               return (
                 <ListItem
                   key={p.id}
-                  onPress={this._handleProductPress.bind(this, p)}
+                  onPress={() => this._handleProductPress(p)}
                 >
                   <Body>
-                    <Text style={{ color: p.gotten ? '#bbb' : '#000' }}>
+                    <Text style={{ color: p.gotten ? "#bbb" : "#000" }}>
                       {p.name}
                     </Text>
                   </Body>
                   <Right>
                     <CheckBox
                       checked={p.gotten}
-                      onPress={this._handleProductPress.bind(this, p)}
+                      onPress={() => this._handleProductPress(p)}
                     />
                   </Right>
                 </ListItem>
@@ -88,16 +85,16 @@ export default class ShoppingList extends React.Component {
           </List>
         </Content>
         <Fab
-          style={{ backgroundColor: '#5067FF' }}
+          style={{ backgroundColor: "#5067FF" }}
           position="bottomRight"
-          onPress={this._handleAddProductPress.bind(this)}
+          onPress={this._handleAddProductPress}
         >
           <Icon name="add" />
         </Fab>
         <Fab
-          style={{ backgroundColor: 'red' }}
+          style={{ backgroundColor: "red" }}
           position="bottomLeft"
-          onPress={this._handleClearPress.bind(this)}
+          onPress={this._handleClearPress}
         >
           <Icon ios="ios-remove" android="md-remove" />
         </Fab>
