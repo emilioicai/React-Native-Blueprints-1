@@ -1,25 +1,20 @@
-import {observable} from 'mobx';
-import {AsyncStorage} from 'react-native';
+import { observable, decorate } from "mobx";
+import { AsyncStorage } from "react-native";
 
 class Store {
-  @observable feeds;
-  @observable selectedFeed;
-  @observable selectedEntry;
-
   constructor() {
-    AsyncStorage.getItem('@feeds')
-    .then((sFeeds)=>{
+    AsyncStorage.getItem("@feeds").then(sFeeds => {
       this.feeds = JSON.parse(sFeeds) || [];
     });
   }
 
   _persistFeeds() {
-    AsyncStorage.setItem('@feeds', JSON.stringify(this.feeds));
+    AsyncStorage.setItem("@feeds", JSON.stringify(this.feeds));
   }
 
   addFeed(url, feed) {
-    this.feeds.push({ 
-      url, 
+    this.feeds.push({
+      url,
       entry: feed.entry,
       title: feed.title,
       updated: feed.updated
@@ -28,8 +23,8 @@ class Store {
   }
 
   removeFeed(url) {
-    this.feeds = this.feeds.filter((f) => {
-      return f.url !== url
+    this.feeds = this.feeds.filter(f => {
+      return f.url !== url;
     });
     this._persistFeeds();
   }
@@ -43,6 +38,10 @@ class Store {
   }
 }
 
+decorate(Store, {
+  feeds: observable,
+  selectedFeed: observable
+});
 
-const store = new Store()
-export default store
+const store = new Store();
+export default store;
