@@ -1,5 +1,6 @@
 import React from "react";
-import { Alert } from "react-native";
+import { Alert, AsyncStorage } from "react-native";
+
 import {
   Body,
   Container,
@@ -19,7 +20,16 @@ export default class ShoppingList extends React.Component {
   };
 
   state = {
-    products: [{ id: 1, name: "bread" }, { id: 2, name: "eggs" }]
+    products: []
+  };
+
+  componentDidMount = async () => {
+    const savedProducts = await AsyncStorage.getItem("@productsInList");
+    if (savedProducts) {
+      this.setState({
+        products: JSON.parse(savedProducts)
+      });
+    }
   };
 
   /*** User Actions Handlers ***/
@@ -35,9 +45,14 @@ export default class ShoppingList extends React.Component {
 
   _handleAddProductPress = () => {
     this.props.navigation.navigate("AddProduct", {
-      addProduct: product => {
+      addProduct: async product => {
+        const newProductsList = [...this.state.products, product];
+        await AsyncStorage.setItem(
+          "@productsInList",
+          JSON.stringify(newProductsList)
+        );
         this.setState({
-          products: this.state.products.concat(product)
+          products: newProductsList
         });
       },
       deleteProduct: product => {

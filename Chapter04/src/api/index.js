@@ -8,7 +8,6 @@ export default {
   },
   fetchImages: function(user = null){
     const images = [
-      {id: 1, src: 'https://netdna.webdesignerdepot.com/uploads/2013/11/picjumbo.com_DSC_3274.jpg', user: {pic: 'https://cdn.pixabay.com/photo/2014/08/20/07/58/girl-422333_960_720.jpg', name: 'Naia'}},
       {id: 2, src: 'https://cdn.pixabay.com/photo/2016/08/24/07/56/sun-1616384_960_720.jpg', user: {pic: 'https://cdn.pixabay.com/photo/2015/09/18/11/46/man-945482_960_720.jpg', name: 'Mike_1982'}},
       {id: 5, src: 'https://cdn.pixabay.com/photo/2013/12/16/15/59/sunset-229335_960_720.jpg', user: {pic: 'https://cdn.pixabay.com/photo/2015/07/20/12/53/man-852762_960_720.jpg', name: 'Sharer1'}},
       {id: 3, src: 'https://cdn.pixabay.com/photo/2016/02/18/15/19/sunset-1207326_960_720.jpg', user: {pic: 'https://cdn.pixabay.com/photo/2014/08/20/07/58/girl-422333_960_720.jpg', name: 'Naia'}},
